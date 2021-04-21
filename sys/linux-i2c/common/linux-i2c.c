@@ -20,7 +20,7 @@ int idx = 0;
 // almost certainly the wrong place for this state!
 int file = 1;
 uint8_t addr = 0x78;
-int adapter_nr = 2; /* probably dynamically determined */
+int adapter_nr = 1; /* probably dynamically determined */
 
 
 uint8_t
@@ -66,9 +66,10 @@ u8x8_byte_linux_i2c(u8x8_t *u8x8,
 	case U8X8_MSG_BYTE_END_TRANSFER:
 		//fprintf(stderr, "++ end transfer, sending cmd %0x %0x count %d\n", data[0], data[1], idx);
 		// NB! note the extre _i2c_ in there! leave that out and you are screwed
+		errno = 0;
 		if (write(file, data, idx) != idx) {
 		//if (i2c_smbus_write_i2c_block_data(file, data[0], idx - 1, &data[1]) < 0) {
-			fprintf(stderr, "can't write cmd %0x: %s\n",  data[0], strerror(errno));
+			fprintf(stderr, "can't write cmd %0x: %s\n", data[0], strerror(errno));
 			return(errno); 
 		}
 		break;
