@@ -18951,8 +18951,7 @@ extern "C" uint8_t u8x8_linux_i2c_delay (u8x8_t * u8x8, uint8_t msg, uint8_t arg
 
 class U8G2_SH1106_128X64_NONAME_F_HW_I2C_LINUX : public U8G2 {
   public: U8G2_SH1106_128X64_NONAME_F_HW_I2C_LINUX(const u8g2_cb_t *rotation) : U8G2() {
-    u8g2_Setup_sh1106_i2c_128x64_noname_1(&u8g2, rotation, u8x8_byte_linux_i2c, u8x8_linux_i2c_delay);
-    //u8x8_SetPin_HW_I2C(getU8x8(), reset, clock, data);
+    u8g2_Setup_sh1106_i2c_128x64_noname_f(&u8g2, rotation, u8x8_byte_linux_i2c, u8x8_linux_i2c_delay);
   }
 };
 #endif // __linux__
