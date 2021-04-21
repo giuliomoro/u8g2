@@ -45,8 +45,16 @@
 #ifndef U8G2LIB_HH
 #define U8G2LIB_HH
 
+#ifdef __linux__
+#include <stdio.h>
+class Print {
+public:
+	int print(const char* s) { return printf("%s", s); }
+};
+#else // __linux__
 #include <Arduino.h>
 #include <Print.h>
+#endif // __linux__
 #include "U8x8lib.h"
 
 #include "u8g2.h"
@@ -18936,6 +18944,18 @@ class U8G2_S1D15721_240X64_F_8080 : public U8G2 {
 /* Arduino constructor list end */
 
 #endif // U8X8_USE_PINS
+
+#ifdef __linux__
+extern "C" uint8_t u8x8_byte_linux_i2c(U8X8_UNUSED u8x8_t *u8x8, U8X8_UNUSED uint8_t msg, U8X8_UNUSED uint8_t arg_int, U8X8_UNUSED void *arg_ptr);
+extern "C" uint8_t u8x8_linux_i2c_delay (u8x8_t * u8x8, uint8_t msg, uint8_t arg_int, void *arg_ptr);
+
+class U8G2_SH1106_128X64_NONAME_F_HW_I2C_LINUX : public U8G2 {
+  public: U8G2_SH1106_128X64_NONAME_F_HW_I2C_LINUX(const u8g2_cb_t *rotation) : U8G2() {
+    u8g2_Setup_sh1106_i2c_128x64_noname_1(&u8g2, rotation, u8x8_byte_linux_i2c, u8x8_linux_i2c_delay);
+    //u8x8_SetPin_HW_I2C(getU8x8(), reset, clock, data);
+  }
+};
+#endif // __linux__
 
 class U8G2_BITMAP : public U8G2 {
   public: U8G2_BITMAP(uint16_t pixel_width, uint16_t pixel_height, const u8g2_cb_t *rotation) {

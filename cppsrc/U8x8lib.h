@@ -39,8 +39,14 @@
 #ifndef U8X8LIB_HH
 #define U8X8LIB_HH
 
+#ifdef __linux__
+static inline void yield() {};
+#include "U8g2lib.h"
+#include <string.h>
+#else // __linux__
 #include <Arduino.h>
 #include <Print.h>
+#endif // __linux__
 
 #include "u8x8.h"
 

@@ -38,6 +38,11 @@
 
 
 #include "U8x8lib.h"
+#ifdef __linux__
+#undef U8X8_HAVE_HW_SPI
+#undef U8X8_HAVE_HW_I2C
+#endif // __linux__
+
 #ifdef U8X8_HAVE_HW_SPI
 #include <SPI.h>
 #endif 
