@@ -18,7 +18,7 @@ char filename[255];
 uint8_t data[BUFSIZ_I2C]; // just to be sure
 int idx = 0;
 // almost certainly the wrong place for this state!
-int file = 1;
+int file = -1;
 int adapter_nr = 1; /* probably dynamically determined */
 
 uint8_t
